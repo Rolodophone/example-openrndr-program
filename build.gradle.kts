@@ -1,30 +1,30 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import org.gradle.internal.os.OperatingSystem
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 /* the name of this project, default is the template version but you are free to change these */
-group = "org.openrndr.template"
-version = "0.3.13"
+group = "net.rolodophone.mygame"
+version = "0.0.1"
 
-val applicationMainClass = "TemplateProgramKt"
+val applicationMainClass = "MyGameKt"
 
 /*  Which additional (ORX) libraries should be added to this project. */
 val orxFeatures = setOf(
 //  "orx-boofcv",
 //  "orx-camera",
 //  "orx-chataigne",
-    "orx-compositor",
+//    "orx-compositor",
 //  "orx-dnk3",
 //  "orx-easing",
 //  "orx-file-watcher",
 //  "orx-parameters",
 //  "orx-filter-extension",
-    "orx-fx",
+//    "orx-fx",
 //  "orx-glslify",
 //  "orx-gradient-descent",
-    "orx-gui",
-    "orx-image-fit",
+//    "orx-gui",
+//    "orx-image-fit",
 //  "orx-integral-image",
 //  "orx-interval-tree",
 //  "orx-jumpflood",
@@ -32,15 +32,15 @@ val orxFeatures = setOf(
 //  "orx-mesh-generators",
 //  "orx-midi",
 //  "orx-no-clear",
-    "orx-noise",
+//    "orx-noise",
 //  "orx-obj-loader",
-    "orx-olive",
+    "orx-olive"
 //  "orx-osc",
 //  "orx-palette",
 //  "orx-poisson-fill",
 //  "orx-rabbit-control,
 //  "orx-runway",
-    "orx-shade-styles",
+//    "orx-shade-styles",
 //  "orx-shader-phrases",
 //  "orx-shapes",
 //  "orx-syphon",
@@ -48,7 +48,7 @@ val orxFeatures = setOf(
 //  "orx-time-operators",
 //  "orx-kinect-v1",
 
-    "orx-panel"
+//    "orx-panel"
 )
 
 /* Which OPENRNDR libraries should be added to this project? */
@@ -129,6 +129,10 @@ fun DependencyHandler.orxNatives(module: String): Any {
 
 dependencies {
     /*  This is where you add additional (third-party) dependencies */
+
+    compile("net.compartmental.code:minim:2.2.2") {
+        exclude(group = "org.apache.maven.plugins", module = "maven-javadoc-plugin")
+    }
 
 //    implementation("org.jsoup:jsoup:1.12.2")
 //    implementation("com.google.code.gson:gson:2.8.6")
@@ -251,4 +255,8 @@ runtime {
     modules.empty()
     modules.add("jdk.unsupported")
     modules.add("java.management")
+}
+val compileKotlin: KotlinCompile by tasks
+compileKotlin.kotlinOptions {
+    languageVersion = "1.4"
 }
